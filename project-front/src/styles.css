@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+*{
+  box-sizing: content-box;
+}
+
+body{
+  margin: 0;
+}
+
+ul{
+  padding: 0;
+}
+
+
+li{
+  border: 1px solid red;
+
+  list-style: none;
+}
+
+#top-bar li{
+  margin-right: 10px;
+  list-style: none;
+  display: inline;
+}
+
+a{
+  text-decoration: none;
+}
+
+
+
+#top-bar{
+  background-color: cornflowerblue;
+}
+
+.button-styled{
+  padding: 2px;
+  border: 1px solid gray;
+}
+
+.cont{
+  border: 1px solid red;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  padding: 10px 10px 10px 10px;
+}
