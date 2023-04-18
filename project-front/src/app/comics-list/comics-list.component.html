@@ -1,0 +1,14 @@
+<div class="cont comics_cont" *ngFor="let c of comics">
+  <a [routerLink]="['/comics', c.id]"><img [attr.src]="c.pic"></a>
+  <ul>
+    <li class="title"><a [routerLink]="['/comics', c.id]">{{c.name}}</a></li>
+    <li>Type: {{c.type_name}}</li>
+    <li>Genre(s): {{c.genre}}</li>
+    <li>Author: {{c.author}}</li>
+    <li>Published: {{c.published}}</li>
+    <li>Duration: {{c.duration}}</li>
+    <li>Status: {{c.status}}</li>
+    <li>Rating: {{c.rating}}</li>
+    <li>Synopsys: {{c.description}}</li>
+    </ul>
+</div>

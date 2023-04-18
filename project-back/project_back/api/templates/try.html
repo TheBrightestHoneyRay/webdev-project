@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="cont">
+        <ul>
+            {% for c in mycomics %}
+                <img src="{{ c.pic }}">
+                <li>{{ c.name }}</li>
+                <li>{{ c.description }}</li>
+                <li>{{ c.type_id }}</li>
+                <li>
+                    {{ c.genre_name }}
+                </li>
+                <li>{{ c.status }}
+            {% endfor %}
+        </ul>
+
+    </div>
+</body>
+</html>

@@ -1,48 +1,67 @@
 /* You can add global styles to this file, and also import other style files */
 *{
   box-sizing: content-box;
+  margin: 0;
 }
 
 body{
+  border: 1px solid green;
   margin: 0;
+  padding: 0;
 }
+
+app-root{
+  border: 1px solid orange;
+  margin: 0;
+  padding: 0;
+ }
 
 ul{
   padding: 0;
 }
 
-
-li{
+li {
   border: 1px solid red;
-
   list-style: none;
-}
-
-#top-bar li{
-  margin-right: 10px;
-  list-style: none;
-  display: inline;
+  margin: 5px;
 }
 
 a{
+  border: 1px solid blue;
   text-decoration: none;
 }
 
-
-
 #top-bar{
   background-color: cornflowerblue;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
 }
 
-.button-styled{
-  padding: 2px;
-  border: 1px solid gray;
+#top-bar li{
+  display: inline;
+
 }
 
 .cont{
-  border: 1px solid red;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  padding: 10px 10px 10px 10px;
+  border: 2px solid lawngreen;
+  padding: 20px;
 }
+
+.comics_cont{
+  border: 2px solid lawngreen;
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+}
+
+.comics_cont img{
+  width: 225px;
+}
+
+.title{
+  font-size: 1.5em;
+}
+
