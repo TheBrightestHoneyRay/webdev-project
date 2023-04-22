@@ -1,5 +1,6 @@
+
 from rest_framework import serializers
-from api.models import Type, Comics, User, MyComics, Genre
+from api.models import Type, Comics, User, MyComics, Genre, Comments, Discussion
 
 
 class ComicsSerializer(serializers.ModelSerializer):
@@ -19,6 +20,7 @@ class ComicsSerializer(serializers.ModelSerializer):
             'status',
             'rating',
             'type_name',
+            'comments'
         )
 
 
@@ -60,4 +62,31 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'password',
             'my_list'
+        )
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = Comments
+        fields = (
+            'id',
+            'user',
+            'body',
+            'post_time'
+        )
+
+
+class DiscussionSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True)
+
+    class Meta:
+        model = Discussion
+        fields = (
+            'id',
+            'title',
+            'creator',
+            'created_time',
+            'comments'
         )

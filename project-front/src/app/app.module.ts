@@ -17,6 +17,7 @@ import { BundlesComponent } from './bundles/bundles.component';
 import { NewsComponent } from './news/news.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoryListComponent } from './category-list/category-list.component';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
     NewsComponent,
     CategoriesComponent,
     CategoryListComponent,
+    CommentsComponent,
   ],
   imports: [
     CommonModule,

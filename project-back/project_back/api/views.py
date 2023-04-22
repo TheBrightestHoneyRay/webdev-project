@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http.response import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.template import loader
-from api.models import Comics, User, Type, MyComics, Genre
+from api.models import Comics, User, Type, MyComics, Genre, Comments, Discussion
 from api.serializers import ComicsSerializer, TypeSerializer, GenreSerializer, MyComicsSerializer, UserSerializer
+from api.serializers import CommentSerializer, DiscussionSerializer
 
 
 def comics_all(request):
@@ -21,7 +22,7 @@ def comics_detail(request, comics_id):
         return JsonResponse({'error': str(e)})
 
     comics_serializer = ComicsSerializer(comics_det)
-    return JsonResponse(comics_serializer.data)
+    return JsonResponse(comics_serializer.data, safe=False)
 
 
 def types_all(request):
@@ -93,6 +94,31 @@ def my_comics_detail(request, user_id, comics_id):
 
     comics_serializer = MyComicsSerializer(comics)
     return JsonResponse(comics_serializer.data, safe=False)
+
+
+def discussions_all(request):
+    discussions = Discussion.objects.all()
+
+    discussions_serializer = DiscussionSerializer(discussions, many=True)
+    return JsonResponse(discussions_serializer.data, safe=False)
+
+
+def comments_all(request):
+    comments = Comments.objects.all()
+
+    comments_serializer = CommentSerializer(comments, many=True)
+    return JsonResponse(comments_serializer.data, safe=False)
+
+
+def comics_comments(request, comics_id):
+    try:
+        com = Comics.objects.get(id=comics_id)
+    except Comics.DoesNotExist as e:
+        return JsonResponse({'error': str(e)})
+
+    comments = Comments.objects.filter(comics=com)
+    comments_serializer = CommentSerializer(comments, many=True)
+    return JsonResponse(comments_serializer.data, safe=False)
 
 
 def top_ten(request):

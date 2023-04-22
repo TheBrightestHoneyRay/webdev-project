@@ -1,0 +1,7 @@
+<div class="cont comment-section">
+  <div class="comment-cont" *ngFor="let c of commentaries; let i = index">
+    <h4 *ngIf="c.user == undefined">anouthorized_commentator{{i}}</h4>
+    <time>{{c.post_time}}</time>
+    <p>{{c.body}}</p>
+  </div>
+</div>

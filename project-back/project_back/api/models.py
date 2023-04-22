@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class User(models.Model):
     user_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=75)
@@ -48,3 +49,41 @@ class MyComics(models.Model):
 
     progress = models.CharField(max_length=255, default='reading')
 
+
+class Discussion(models.Model):
+    creator = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True
+    )
+
+    title = models.TextField()
+    created_time = models.DateTimeField(auto_now_add=True)
+
+
+class Comments(models.Model):
+    user = models.ForeignKey(
+        User,
+        related_name='comments',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+
+    comics = models.ForeignKey(
+        Comics,
+        related_name='comments',
+        on_delete=models.CASCADE,
+        null=True
+    )
+
+    discussion = models.ForeignKey(
+        Discussion,
+        related_name='comments',
+        on_delete=models.CASCADE,
+        null=True
+    )
+
+    body = models.TextField()
+    post_time = models.DateTimeField(
+        auto_now_add=True
+    )
