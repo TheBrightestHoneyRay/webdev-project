@@ -1,1 +1,24 @@
-<p>top-list works!</p>
+<div class="cont">
+
+  <div class="top-list">
+    <h4>Top Ongoing</h4>
+    <ul *ngFor="let c of ongoingComics; let i = index">
+      <li>
+        {{i+1}}
+        <img [attr.src]="c.pic">
+      </li>
+      <li>{{c.name}}</li>
+    </ul>
+  </div>
+
+  <div *ngFor="let t of types" class="top-list">
+    <h4>{{t.name}}</h4>
+    <ul *ngFor="let c of t.comics; let i = index">
+      <li>
+        {{i+1}}
+        <img [attr.src]="c.pic">
+      </li>
+      <li>{{c.name}}</li>
+    </ul>
+  </div>
+</div>

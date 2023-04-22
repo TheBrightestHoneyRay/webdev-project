@@ -15,4 +15,5 @@ urlpatterns = [
     path('top_three/', views.top_three),
     path('top_three/<int:type_id>/', views.type_three),
     path('template/', views.testing),
+    path('ongoing/top_three', views.top_three_ongoing),
 ]

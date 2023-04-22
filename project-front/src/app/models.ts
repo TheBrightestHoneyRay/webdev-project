@@ -12,3 +12,9 @@ export interface Comics{
   published: string;
   type_name: string;
 }
+
+export interface Tyep{
+  id: number;
+  name: string;
+  comics: Comics[]
+}

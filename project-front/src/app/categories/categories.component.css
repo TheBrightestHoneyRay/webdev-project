@@ -1,0 +1,17 @@
+.cont{
+  padding: 5px;
+}
+
+table{
+  width: 100%;
+}
+
+table, th{
+  text-align: center;
+}
+
+th{
+  border-left: 1px solid darkslateblue;
+  border-right: 1px solid darkslateblue;
+  width: 25%;
+}

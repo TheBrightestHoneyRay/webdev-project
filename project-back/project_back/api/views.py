@@ -131,3 +131,10 @@ def type_three(request, type_id):
 
     comics_serializer = ComicsSerializer(comics, many=True)
     return JsonResponse(comics_serializer.data, safe=False)
+
+
+def top_three_ongoing(request):
+    coms = Comics.objects.filter(status='Ongoing').order_by('-rating')[:3]
+
+    comics_serializer = ComicsSerializer(coms, many=True)
+    return JsonResponse(comics_serializer.data, safe=False)
