@@ -1,9 +1,7 @@
 <div class="cont">
-  <table>
-    <tr>
-      <th *ngFor="let c of categories"><a [routerLink]="['/category', c.id]">{{c.name}}</a></th>
-    </tr>
-  </table>
+  <ul class="hor-list">
+    <li *ngFor="let c of categories"><a [routerLink]="['/category', c.id]">{{c.name}}</a></li>
+  </ul>
 </div>
 
 

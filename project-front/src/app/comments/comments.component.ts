@@ -11,10 +11,11 @@ import {Commentary} from "../models";
 export class CommentsComponent implements OnInit{
   comicsId: number;
   commentaries: Commentary[]
-
+  review: string
   constructor(private commentsService: CommentsService, private route: ActivatedRoute) {
     this.commentaries = []
     this.comicsId = NaN
+    this.review = ''
   }
 
   ngOnInit() {
@@ -28,6 +29,10 @@ export class CommentsComponent implements OnInit{
     this.commentsService.getComments(id).subscribe((comments) =>{
       this.commentaries = comments
     })
+  }
+
+  postReview(comicsId: number){
+    /* create new Comment here */
   }
 
 }

@@ -1,4 +1,32 @@
 <div class="cont">
-  <h3>{{comics.name}}</h3>
-  <app-comments></app-comments>
+  <table>
+    <tr>
+      <th><h3>{{comics.name}}</h3></th>
+    </tr>
+    <tr>
+      <td>
+        <ul>
+          <li>
+            <img [attr.src]="comics.pic">
+          </li>
+          <li>Type: {{comics.type_name}}</li>
+          <li>Duration: {{comics.duration}}</li>
+          <li>Status: {{comics.status}}</li>
+          <li>Published: {{comics.published | date}}</li>
+          <li>Genre: {{comics.genre}}</li>
+          <li>Author: {{comics.author}}</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Rating: {{comics.rating}}</li>
+          <li>Synopsis: {{comics.description}}</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><app-comments></app-comments></td>
+    </tr>
+  </table>
 </div>

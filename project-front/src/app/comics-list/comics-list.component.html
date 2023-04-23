@@ -1,5 +1,5 @@
 <div class="cont comics_cont" *ngFor="let c of comics">
-  <a [routerLink]="['/comics', c.id]"><img [attr.src]="c.pic"></a>
+  <a [routerLink]="['/comics', c.id]"><img [attr.alt]="c.name" [attr.src]="c.pic"></a>
   <ul>
     <li class="title"><a [routerLink]="['/comics', c.id]">{{c.name}}</a></li>
     <li>Type: {{c.type_name}}</li>
@@ -10,5 +10,6 @@
     <li>Status: {{c.status}}</li>
     <li>Rating: {{c.rating}}</li>
     <li>Synopsys: {{c.description}}</li>
-    </ul>
+    <li><button (click)="addToList(c.id)">Add to list</button></li>
+  </ul>
 </div>

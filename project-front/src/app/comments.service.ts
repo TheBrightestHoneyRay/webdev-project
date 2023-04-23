@@ -12,4 +12,8 @@ export class CommentsService {
   getComments(id: number): Observable<Commentary[]>{
     return this.httpClient.get<Commentary[]>(`http://127.0.0.1:8000/api/comics/${id}/comments`)
   }
+
+  /* Create comment here */
+  // Delete comment here
+  // Edit comment here
 }

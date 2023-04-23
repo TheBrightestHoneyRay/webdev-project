@@ -1,5 +1,13 @@
 <div class="cont">
-  <ul>
-    <li></li>
+  <ul class="bundles">
+    <li class="cont-item hor-list" id="cont-item1">
+     <h4>Latest Updates</h4>
+      <a>View more</a>
+    </li>
+    <li class="cont-item hor-list" id="cont-item2">
+      <ul *ngFor="let c of comics">
+        <li class="bundle">{{c.name}}</li>
+      </ul>
+    </li>
   </ul>
 </div>

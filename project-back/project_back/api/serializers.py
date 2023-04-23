@@ -19,6 +19,7 @@ class ComicsSerializer(serializers.ModelSerializer):
             'duration',
             'status',
             'rating',
+            'published',
             'type_name',
             'comments'
         )

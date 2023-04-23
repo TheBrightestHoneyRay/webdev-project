@@ -10,7 +10,8 @@ export interface User{
   user_name: string;
   email: string;
   password: string;
-  my_list: MyComics[]
+  my_list: MyComics[];
+  is_logged: boolean;
 }
 
 export interface Comics{
@@ -23,7 +24,7 @@ export interface Comics{
   duration: string;
   status: string;
   rating: number;
-  published: string;
+  published: Date;
   type_name: string;
 }
 

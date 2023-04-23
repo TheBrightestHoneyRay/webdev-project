@@ -1,75 +1,74 @@
-/* You can add global styles to this file, and also import other style files */
 *{
   box-sizing: content-box;
   margin: 0;
+  padding: 0;
 }
 
 body{
-  border: 1px solid green;
   margin: 0;
-  padding: 0;
+  border: 1px solid red;
+  text-align: left;
 }
 
-app-root{
-  border: 1px solid orange;
-  margin: 0;
-  padding: 0;
- }
+img{
+  max-width: 200px;
+}
 
 ul{
-  padding: 0;
+  width: 100%;
 }
 
-li {
-  border: 1px solid red;
+li{
   list-style: none;
-  margin: 5px;
+  padding-right: 10px;
 }
 
-a{
-  border: 1px solid blue;
-  text-decoration: none;
-}
-
-#top-bar{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-}
-
-#top-bar li{
-  display: inline;
-
+table, tr{
+  border: 1px solid blueviolet;
+  width: 100%;
 }
 
 .cont{
-  border: 2px solid lawngreen;
-  padding: 20px;
+  border: 1px solid blue;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.comics_cont{
-  border: 2px solid lawngreen;
+#top-bar{
+  background-color: cornflowerblue;
+}
+
+#sign-log{
+  width: fit-content;
+  justify-content: space-between;
+}
+
+.hor-list{
   display: flex;
   flex-direction: row;
-  margin: 10px 0;
+  justify-content: space-evenly;
 }
 
-.comics_cont img{
-  width: 225px;
-}
-
-.title{
-  font-size: 1.5em;
-}
-
-.top-list img{
-  width: 80px
-}
-
-.top-list ul{
+#top-list{
   display: flex;
+  flex-direction: column;
 }
 
+.top-list-item{
+  border: 1px solid green;
+  width: 90%;
+}
 
+.cont-item{
+  border: 1px solid grey;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
 
+.bundle{
+  border: 1px solid red;
+  width: 200px;
+  height: 280px;
+  margin: 5px;
+}

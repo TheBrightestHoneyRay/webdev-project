@@ -1,7 +1,21 @@
 <div class="cont comment-section">
-  <div class="comment-cont" *ngFor="let c of commentaries; let i = index">
-    <h4 *ngIf="c.user == undefined">anouthorized_commentator{{i}}</h4>
-    <time>{{c.post_time}}</time>
-    <p>{{c.body}}</p>
-  </div>
+  <ul>
+    <li class="sec-items">
+      <form id="create-review">
+        <label>Reviews</label>
+        <input type="text" placeholder="Enter your review" [(ngModel)]="review">
+        <button>Submit</button>
+      </form>
+    </li>
+
+    <li class="sec-items">
+      <ul class="cont" *ngFor="let c of commentaries; let i = index">
+        <li id="review">
+          <h4 *ngIf="c.user == undefined">unauthorized_commentator{{i}}</h4>
+          <time>{{c.post_time | date}}</time>
+          <p>{{c.body}}</p>
+        </li>
+      </ul>
+    </li>
+  </ul>
 </div>
