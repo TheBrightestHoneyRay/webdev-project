@@ -1,0 +1,5 @@
+<div class="cont">
+  <ul>
+    <li *ngFor="let d of discussions"><a [routerLink]="['/discussions', d.id]">{{d.title}}</a></li>
+  </ul>
+</div>

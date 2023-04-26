@@ -3,8 +3,8 @@
     <li class="sec-items">
       <form id="create-review">
         <label>Reviews</label>
-        <input type="text" placeholder="Enter your review" [(ngModel)]="review">
-        <button>Submit</button>
+        <input type="text" placeholder="Enter your review" [(ngModel)]="review" [ngModelOptions]="{standalone: true}">
+        <button (click)="postReview()">Submit</button>
       </form>
     </li>
 

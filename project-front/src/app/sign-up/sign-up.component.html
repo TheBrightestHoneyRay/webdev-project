@@ -1,3 +1,13 @@
-<div class="cont" id="sign-up">
-  Sign up page
+<div class="cont centered" id="sign-up">
+  <form>
+    <fieldset class="authorization">
+      <label>User name:</label>
+      <input type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true}">
+      <label>Email</label>
+      <input type="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+      <label>Password</label>
+      <input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+      <button (click)="newUser()">Submit</button>
+    </fieldset>
+  </form>
 </div>

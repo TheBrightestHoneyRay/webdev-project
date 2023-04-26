@@ -1,0 +1,14 @@
+<div class="cont">
+
+  <form>
+    <input type="text" [(ngModel)]="comment" [ngModelOptions]="{standalone: true}">
+    <button (click)="postComment()">Post</button>
+  </form>
+  <ul *ngFor="let c of commentaries">
+    <li>{{c.user}}</li>
+    <li>
+      {{c.body}}
+    </li>
+    <li>{{c.post_time}}</li>
+  </ul>
+</div>

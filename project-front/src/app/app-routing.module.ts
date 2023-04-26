@@ -7,6 +7,8 @@ import {LogInComponent} from "./log-in/log-in.component";
 import {MainPageComponent} from "./main-page/main-page.component";
 import {ComicsDetailsComponent} from "./comics-details/comics-details.component";
 import {CategoryListComponent} from "./category-list/category-list.component";
+import {DiscussionsComponent} from "./discussions/discussions.component";
+import {DiscussionComponent} from "./discussion/discussion.component";
 
 const routes: Routes = [
   {path: 'home', component: MainPageComponent},
@@ -14,6 +16,8 @@ const routes: Routes = [
   {path: 'log-in', component: LogInComponent},
   {path: 'comics/:id', component: ComicsDetailsComponent},
   {path: 'category/:id', component: ComicsListComponent},
+  {path: 'discussions', component: DiscussionsComponent},
+  {path: 'discussions/:id', component: DiscussionComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
 ];
 

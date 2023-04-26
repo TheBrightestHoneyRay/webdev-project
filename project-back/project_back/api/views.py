@@ -1,9 +1,18 @@
+import json
+
 from django.shortcuts import render
 from django.http.response import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.template import loader
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 from api.models import Comics, User, Type, MyComics, Genre, Comments, Discussion
 from api.serializers import ComicsSerializer, TypeSerializer, GenreSerializer, MyComicsSerializer, UserSerializer
 from api.serializers import CommentSerializer, DiscussionSerializer
+
 
 
 def comics_all(request):
@@ -74,6 +83,24 @@ def user_list_all(request, user_id):
     return JsonResponse(my_comics_list_serializer.data, safe=False)
 
 
+@csrf_exempt
+def user(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        username = data.get('username', '')
+        email = data.get('email', '')
+        password = data.get('password', '')
+        user = User.objects.create(user_name=username, email=email, password=password)
+        user_serializer = UserSerializer(user)
+        return JsonResponse(user_serializer.data, safe=False)
+
+
+def users(request):
+    useres = User.objects.all()
+    users_serializer = UserSerializer(useres, many=True)
+    return JsonResponse(users_serializer.data, safe=False)
+
+
 def my_comics_detail(request, user_id, comics_id):
 
     try:
@@ -103,9 +130,59 @@ def discussions_all(request):
     return JsonResponse(discussions_serializer.data, safe=False)
 
 
-def comments_all(request):
-    comments = Comments.objects.all()
+@csrf_exempt
+def discussion_newcommentary(request, dis_id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        coment_body = data.get('body', '')
+        dis_id = data.get('discussion', '')
+        discussion = Discussion.objects.get(id=dis_id)
 
+        coment = Comments.objects.create(discussion=discussion, body=coment_body)
+        coment_serializer = CommentSerializer(coment)
+        return JsonResponse(coment_serializer.data, safe=False)
+
+
+def recent_discussions(request):
+    dis = Discussion.objects.order_by('-created_time')[:5]
+
+    dis_serializer = DiscussionSerializer(dis, many=True)
+    return JsonResponse(dis_serializer.data, safe=False)
+
+
+def discussion_details(request, dis_id):
+    try:
+        dis = Discussion.objects.get(id=dis_id)
+    except Discussion.DoesNotExist as e:
+        return JsonResponse({'error': str(e)})
+
+    dis_serializer = DiscussionSerializer(dis)
+    return JsonResponse(dis_serializer.data, safe=False)
+
+
+@csrf_exempt
+def comments_all(request):
+    if request.method == 'GET':
+        comments = Comments.objects.all()
+
+        comments_serializer = CommentSerializer(comments, many=True)
+        return JsonResponse(comments_serializer.data, safe=False)
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        comment_body = data.get('body', '')
+        comics_id = data.get('comics', '')
+        com = Comics.objects.get(id=comics_id)
+        comment = Comments.objects.create(comics=com, body=comment_body)
+
+
+def discussion_commentary(request, dis_id):
+    try:
+        dis = Discussion.objects.get(id=dis_id)
+    except Discussion.DoesNotExist as e:
+        return JsonResponse({'error': str(e)})
+
+    comments = Comments.objects.filter(discussion=dis)
     comments_serializer = CommentSerializer(comments, many=True)
     return JsonResponse(comments_serializer.data, safe=False)
 

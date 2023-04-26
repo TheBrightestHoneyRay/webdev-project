@@ -19,6 +19,10 @@ import { CategoriesComponent } from './categories/categories.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { CommentsComponent } from './comments/comments.component';
 import { DiscussionsComponent } from './discussions/discussions.component';
+import { DiscussionComponent } from './discussion/discussion.component';
+import { DiscussionCommentariesComponent } from './discussion-commentaries/discussion-commentaries.component';
+import { DiscussionBundleComponent } from './discussion-bundle/discussion-bundle.component';
+import { MycomicsListComponent } from './mycomics-list/mycomics-list.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,10 @@ import { DiscussionsComponent } from './discussions/discussions.component';
     CategoryListComponent,
     CommentsComponent,
     DiscussionsComponent,
+    DiscussionComponent,
+    DiscussionCommentariesComponent,
+    DiscussionBundleComponent,
+    MycomicsListComponent,
   ],
   imports: [
     CommonModule,

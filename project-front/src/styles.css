@@ -72,3 +72,12 @@ table, tr{
   height: 280px;
   margin: 5px;
 }
+
+.centered{
+  justify-content: space-around;
+}
+
+.authorization{
+  display: flex;
+  flex-direction: column;
+}

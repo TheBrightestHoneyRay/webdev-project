@@ -49,3 +49,7 @@ export interface Discussion{
   created_time: Date;
   comments: Comment[];
 }
+
+export interface AuthToken {
+  token: string;
+}

@@ -1,3 +1,11 @@
-<div class="cont" id="log-in">
-  Log in page
+<div class="cont centered" id="log-in">
+  <form>
+    <fieldset class="authorization">
+      <label>User name:</label>
+      <input type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true}">
+      <label>Password:</label>
+      <input type="text" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+      <button (click)="login()">Login</button>
+    </fieldset>
+  </form>
 </div>
