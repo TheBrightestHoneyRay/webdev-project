@@ -50,6 +50,19 @@ export interface Discussion{
   comments: Comment[];
 }
 
+export interface Gallery{
+  id: number;
+  pic: string;
+  newsId: number;
+}
+
+export interface News{
+  id: number;
+  title: string;
+  body: string;
+  post_date: Date
+}
+
 export interface AuthToken {
   token: string;
 }

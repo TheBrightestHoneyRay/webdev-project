@@ -1,7 +1,7 @@
 <div class="cont" id="top-list">
 
   <div class="top-list-item">
-    <h4>Top Ongoing</h4>
+    <h3>Top Ongoing</h3>
     <ul *ngFor="let c of ongoingComics; let i = index">
       <li>
         {{i+1}}
@@ -12,7 +12,7 @@
   </div>
 
   <div *ngFor="let t of types" class="top-list-item">
-    <h4>{{t.name}}</h4>
+    <h3>{{t.name}}</h3>
     <ul *ngFor="let c of t.comics; let i = index">
       <li>
         {{i+1}}

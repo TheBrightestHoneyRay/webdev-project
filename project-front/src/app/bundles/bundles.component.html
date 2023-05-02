@@ -5,8 +5,9 @@
       <a>View more</a>
     </li>
     <li class="cont-item hor-list" id="cont-item2">
-      <ul *ngFor="let c of comics">
-        <li class="bundle">{{c.name}}</li>
+      <ul *ngFor="let c of comics" class="bundle">
+        <li><img [attr.src]="c.pic"></li>
+        <li>{{c.name}}</li>
       </ul>
     </li>
   </ul>

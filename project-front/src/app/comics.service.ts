@@ -26,4 +26,8 @@ export class ComicsService {
     return this.httpClient.get<Comics[]>('http://127.0.0.1:8000/api/ongoing/top_three')
   }
 
+  latestRelease(): Observable<Comics[]>{
+    return this.httpClient.get<Comics[]>('http://127.0.0.1:8000/api/comics/latest/')
+  }
+
 }

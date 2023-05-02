@@ -26,7 +26,6 @@ export class ComicsListComponent implements OnInit{
   ngOnInit(): void{
     this.getCategoryId()
     this.getTypeComics(this.categoryId)
-
   }
 
   getCategoryId(){
@@ -46,9 +45,5 @@ export class ComicsListComponent implements OnInit{
     else{
       alert('You are not logged!')
     }
-  }
-
-  showRoute(){
-    alert(this.route)
   }
 }

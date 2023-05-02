@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from api.models import Type, Comics, User, MyComics, Genre, Comments, Discussion
+from api.models import News, Type, Comics, User, MyComics, Gallery, Genre, Comments, Discussion
 
 
 class ComicsSerializer(serializers.ModelSerializer):
@@ -91,3 +91,36 @@ class DiscussionSerializer(serializers.ModelSerializer):
             'created_time',
             'comments'
         )
+
+
+class GallerySerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    pic = serializers.CharField()
+
+    def create(self, validated_data):
+        gallery = Gallery.objects.create(**validated_data)
+        return gallery
+
+    def update(self, instance, validated_data):
+        instance.pic = validated_data.get('pic', instance.pic)
+        instance.save()
+        return instance
+
+
+class NewsSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    title = serializers.CharField(max_length=255)
+    body = serializers.CharField()
+    post_date = serializers.DateField()
+    gallery = GallerySerializer(many=True)
+
+    def create(self, validated_data):
+        news = News.objects.create(**validated_data)
+        return news
+
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.body = validated_data.get('body', instance.body)
+        instance.gallery = validated_data.get('gallery', instance.gallery)
+        return instance
+

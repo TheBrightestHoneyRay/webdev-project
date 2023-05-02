@@ -12,6 +12,8 @@ body{
 
 img{
   max-width: 200px;
+  max-height: 250px;
+  object-fit: fill;
 }
 
 ul{
@@ -58,12 +60,13 @@ table, tr{
 .top-list-item{
   border: 1px solid green;
   width: 90%;
+  padding-top: 10px;
 }
 
 .cont-item{
   border: 1px solid grey;
   justify-content: space-between;
-  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 .bundle{
@@ -81,3 +84,10 @@ table, tr{
   display: flex;
   flex-direction: column;
 }
+
+.ver-list{
+  flex-direction: column;
+}
+
+
+

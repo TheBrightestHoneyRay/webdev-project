@@ -9,6 +9,7 @@ import {ComicsDetailsComponent} from "./comics-details/comics-details.component"
 import {CategoryListComponent} from "./category-list/category-list.component";
 import {DiscussionsComponent} from "./discussions/discussions.component";
 import {DiscussionComponent} from "./discussion/discussion.component";
+import {NewsDetailsComponent} from "./news-details/news-details.component";
 
 const routes: Routes = [
   {path: 'home', component: MainPageComponent},
@@ -18,7 +19,9 @@ const routes: Routes = [
   {path: 'category/:id', component: ComicsListComponent},
   {path: 'discussions', component: DiscussionsComponent},
   {path: 'discussions/:id', component: DiscussionComponent},
+  {path: 'news/:id', component: NewsDetailsComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
+
 ];
 
 @NgModule({

@@ -25,7 +25,6 @@ export class CommentsComponent implements OnInit{
       this.comicsId = params['id']
     })
     this.getComments(this.comicsId)
-    this.showUrl()
   }
 
   getComments(com_id: number){
@@ -44,9 +43,4 @@ export class CommentsComponent implements OnInit{
       }
     }
   }
-
-  showUrl(){
-    alert(this.route)
-  }
-
 }

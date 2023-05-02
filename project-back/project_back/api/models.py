@@ -95,7 +95,18 @@ class Comments(models.Model):
         auto_now_add=True
     )
 
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-    if created:
-        Token.objects.create(user=instance)
+
+class News(models.Model):
+    title = models.CharField(max_length=255)
+    body = models.TextField()
+    post_date = models.DateField(auto_now_add=True)
+
+
+class Gallery(models.Model):
+    pic = models.URLField(null=True)
+    news = models.ForeignKey(
+        News,
+        related_name='gallery',
+        on_delete=models.CASCADE
+    )
+

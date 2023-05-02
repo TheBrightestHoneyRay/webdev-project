@@ -5,14 +5,15 @@ from django.http.response import JsonResponse, HttpResponse, HttpResponseRedirec
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
+from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-from api.models import Comics, User, Type, MyComics, Genre, Comments, Discussion
+from api.models import Comics, User, Type, MyComics, News, Gallery, Genre, Comments, Discussion
 from api.serializers import ComicsSerializer, TypeSerializer, GenreSerializer, MyComicsSerializer, UserSerializer
-from api.serializers import CommentSerializer, DiscussionSerializer
-
+from api.serializers import CommentSerializer, DiscussionSerializer, NewsSerializer, GallerySerializer
 
 
 def comics_all(request):
@@ -121,6 +122,12 @@ def my_comics_detail(request, user_id, comics_id):
 
     comics_serializer = MyComicsSerializer(comics)
     return JsonResponse(comics_serializer.data, safe=False)
+
+
+def latest_release(request):
+    comics = Comics.objects.order_by('-published')[:5]
+    serializer = ComicsSerializer(comics, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
 
 def discussions_all(request):
@@ -241,3 +248,76 @@ def top_three_ongoing(request):
 
     comics_serializer = ComicsSerializer(coms, many=True)
     return JsonResponse(comics_serializer.data, safe=False)
+
+
+class NewsList(APIView):
+    def get(self, request):
+        news = News.objects.all()
+        serializer = NewsSerializer(news, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = NewsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+
+class NewsDetails(APIView):
+
+    def get_object(self, id):
+        try:
+            return News.objects.get(id=id)
+        except News.DoesNotExist as e:
+            return JsonResponse({'error': str(e)})
+
+    def get(self, request, id):
+        news = self.get_object(id)
+        serializer = NewsSerializer(news)
+        return Response(serializer.data)
+
+
+class GalleryList(APIView):
+
+    def get(self, request):
+        gallery = Gallery.objects.all()
+        serializer = GallerySerializer(gallery, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = GallerySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+
+def news_gallery(request, news_id):
+
+    try:
+        news = News.objects.get(id=news_id)
+    except News.DoesNotExist as e:
+        return JsonResponse({'error': str(e)})
+
+    gallery = Gallery.objects.filter(news=news)
+    serializer = GallerySerializer(gallery, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+
+def news_gallery_detail(request, news_id, gallery_id):
+    try:
+        news = News.objects.get(id=news_id)
+    except News.DoesNotExist as e:
+        return JsonResponse({'error': str(e)})
+
+    gallery = Gallery.objects.filter(news=news)
+
+    try:
+        detail = gallery.get(id=gallery_id)
+    except News.DoesNotExist as e:
+        return JsonResponse({'error': str(e)})
+
+    serializer = GallerySerializer(detail)
+    return JsonResponse(serializer.data, safe=False)
+

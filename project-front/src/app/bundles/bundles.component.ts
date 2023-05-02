@@ -20,7 +20,7 @@ export class BundlesComponent implements OnInit{
   }
 
   getComics(){
-    this.comicsService.getComics().subscribe((comics) =>{
+    this.comicsService.latestRelease().subscribe((comics) =>{
       this.comics = comics
     })
   }

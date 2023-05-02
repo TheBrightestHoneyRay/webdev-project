@@ -23,6 +23,7 @@ import { DiscussionComponent } from './discussion/discussion.component';
 import { DiscussionCommentariesComponent } from './discussion-commentaries/discussion-commentaries.component';
 import { DiscussionBundleComponent } from './discussion-bundle/discussion-bundle.component';
 import { MycomicsListComponent } from './mycomics-list/mycomics-list.component';
+import { NewsDetailsComponent } from './news-details/news-details.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { MycomicsListComponent } from './mycomics-list/mycomics-list.component';
     DiscussionCommentariesComponent,
     DiscussionBundleComponent,
     MycomicsListComponent,
+    NewsDetailsComponent,
   ],
   imports: [
     CommonModule,
