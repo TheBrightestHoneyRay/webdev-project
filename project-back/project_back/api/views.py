@@ -130,11 +130,22 @@ def latest_release(request):
     return JsonResponse(serializer.data, safe=False)
 
 
+@csrf_exempt
 def discussions_all(request):
-    discussions = Discussion.objects.all()
+    if request.method == 'GET':
+        discussions = Discussion.objects.all()
 
-    discussions_serializer = DiscussionSerializer(discussions, many=True)
-    return JsonResponse(discussions_serializer.data, safe=False)
+        discussions_serializer = DiscussionSerializer(discussions, many=True)
+        return JsonResponse(discussions_serializer.data, safe=False)
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        title = data.get('title', '')
+        creator = data.get('creator', '')
+        discussion = Discussion.objects.create(creator=creator, title=title)
+        serializer = DiscussionSerializer(discussion)
+        return JsonResponse(serializer.data, safe=True)
+
 
 
 @csrf_exempt
@@ -206,7 +217,7 @@ def comics_comments(request, comics_id):
 
 
 def top_ten(request):
-    comics = Comics.objects.all().order_by('rating')[:10]
+    comics = Comics.objects.all().order_by('-rating')[:10]
 
     comics_serializer = ComicsSerializer(comics, many=True)
     return JsonResponse(comics_serializer.data, safe=False)

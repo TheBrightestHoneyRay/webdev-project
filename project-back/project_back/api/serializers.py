@@ -87,6 +87,7 @@ class DiscussionSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'title',
+            'user',
             'creator',
             'created_time',
             'comments'

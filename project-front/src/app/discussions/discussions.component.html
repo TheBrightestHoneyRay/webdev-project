@@ -1,6 +1,11 @@
-<div class="cont">
+<div class="cont ver-list">
+  <form>
+    <label>Title</label>
+    <input type="text" [(ngModel)]="title" [ngModelOptions]="{standalone: true}">
+    <button (click)="newDiscussion()">Post</button>
+  </form>
+
   <ul *ngFor="let d of discussions">
-    <li>{{d.title}}</li>
-    <li>{{d.creator}}</li>
+    <li><a [routerLink]="['/discussions', d.id]">{{d.title}}</a></li>
   </ul>
 </div>

@@ -12,7 +12,7 @@
       <ul class="cont" *ngFor="let c of commentaries; let i = index">
         <li id="review">
           <h4 *ngIf="c.user == undefined">unauthorized_commentator{{i}}</h4>
-          <time>{{c.post_time | date}}</time>
+          <time>{{c.post_time | date:'medium'}}</time>
           <p>{{c.body}}</p>
         </li>
       </ul>

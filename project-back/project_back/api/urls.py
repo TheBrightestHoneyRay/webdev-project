@@ -34,5 +34,6 @@ urlpatterns = [
     path('news/', views.NewsList.as_view()),
     path('news/<int:id>/', views.NewsDetails.as_view()),
     path('news/<int:news_id>/gallery', views.news_gallery),
-    path('news/<int:news_id>/gallery/<int:gallery_id>/', views.news_gallery_detail)
+    path('news/<int:news_id>/gallery/<int:gallery_id>/', views.news_gallery_detail),
+    path('gallery/', views.GalleryList.as_view()),
 ]

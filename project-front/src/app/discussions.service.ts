@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Discussion} from "./models";
+import {Discussion, User} from "./models";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,11 @@ export class DiscussionsService {
 
   getDiscussions(): Observable<Discussion[]>{
     return this.httpClient.get<Discussion[]>('http://127.0.0.1:8000/api/discussions/')
+  }
+
+  createDiscussion(title: string, creator: string): Observable<Discussion>{
+    return this.httpClient.post<Discussion>('http://127.0.0.1:8000/api/discussions/',
+      {title: title, creator: creator})
   }
 
   recentDiscussions(): Observable<Discussion[]>{

@@ -1,13 +1,21 @@
 <div class="cont ver-list">
-  <table>
-    <tr>
-      <td>{{discussion.title}}</td>
-    </tr>
-    <tr>
-      <td>{{discussion.creator}}</td>
-    </tr>
-  </table>
   <ul>
-    <li><app-discussion-commentaries></app-discussion-commentaries></li>
+    <li>
+        <a routerLink="/discussions">
+          Discussions
+        </a>
+    </li>
+    <li>
+      {{discussion.title}}
+    </li>
+    <li>
+      {{discussion.creator}}
+    </li>
+    <li>
+      {{discussion.created_time | date}}
+    </li>
+    <li>
+      <app-discussion-commentaries></app-discussion-commentaries>
+    </li>
   </ul>
 </div>

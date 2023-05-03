@@ -45,7 +45,8 @@ export interface Commentary{
 export interface Discussion{
   id: number;
   title: string;
-  creator: User;
+  user: User;
+  creator: string;
   created_time: Date;
   comments: Comment[];
 }

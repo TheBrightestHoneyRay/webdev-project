@@ -55,12 +55,13 @@ class MyComics(models.Model):
 
 
 class Discussion(models.Model):
-    creator = models.ForeignKey(
+    user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
         null=True
     )
 
+    creator = models.CharField(max_length=50, null=True)
     title = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
 
