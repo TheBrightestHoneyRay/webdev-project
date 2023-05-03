@@ -9,9 +9,7 @@ export interface User{
   id: number;
   user_name: string;
   email: string;
-  password: string;
   my_list: MyComics[];
-  is_logged: boolean;
 }
 
 export interface Comics{

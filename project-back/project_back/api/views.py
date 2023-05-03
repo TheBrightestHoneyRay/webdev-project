@@ -1,11 +1,14 @@
+import datetime
 import json
 
+import jwt
 from django.shortcuts import render
 from django.http.response import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from rest_framework.views import APIView
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -70,18 +73,28 @@ def testing(request):
     return HttpResponse(template.render(context, request))
 
 
+@csrf_exempt
 def user_list_all(request, user_id):
-    try:
-       i_user = User.objects.get(id=user_id)
-    except User.DoesNotExist as e:
-        return JsonResponse({'error': str(e)})
-    my_comics = MyComics.objects.all()
-    my_comics_list = []
-    for com in my_comics:
-        if com.user_id == user_id:
-            my_comics_list.append(com)
-    my_comics_list_serializer = MyComicsSerializer(my_comics_list, many=True)
-    return JsonResponse(my_comics_list_serializer.data, safe=False)
+    if request.method == 'GET':
+        try:
+           i_user = User.objects.get(id=user_id)
+        except User.DoesNotExist as e:
+            return JsonResponse({'error': str(e)})
+        my_comics = MyComics.objects.all()
+        my_comics_list = []
+        for com in my_comics:
+            if com.user_id == user_id:
+                my_comics_list.append(com)
+        my_comics_list_serializer = MyComicsSerializer(my_comics_list, many=True)
+        return JsonResponse(my_comics_list_serializer.data, safe=False)
+
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        comics = data.get('comis', '')
+        user = User.objects.get(id=user_id)
+        mycomics = MyComics.objects.create(comics=comics, user=user)
+        serializer = MyComicsSerializer(mycomics)
+        return JsonResponse(serializer.data, safe=False)
 
 
 @csrf_exempt
@@ -145,7 +158,6 @@ def discussions_all(request):
         discussion = Discussion.objects.create(creator=creator, title=title)
         serializer = DiscussionSerializer(discussion)
         return JsonResponse(serializer.data, safe=True)
-
 
 
 @csrf_exempt
@@ -332,3 +344,68 @@ def news_gallery_detail(request, news_id, gallery_id):
     serializer = GallerySerializer(detail)
     return JsonResponse(serializer.data, safe=False)
 
+
+class Signup(APIView):
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return JsonResponse(serializer.data)
+
+
+class Login(APIView):
+    def post(self, request):
+        user_name = request.data['user_name']
+        password = request.data['password']
+
+        user = User.objects.get(user_name=user_name)
+
+        if user is None:
+            raise AuthenticationFailed('User is not found')
+
+        if not user.check_password(password):
+            raise AuthenticationFailed('Incorrect password')
+
+        payload = {
+            'id': user.id,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'iat': datetime.datetime.utcnow()
+        }
+
+        token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
+
+        response = Response()
+        response.set_cookie(key='jwt', value=token, httponly=True)
+        response.data = {
+            'jwt': token
+        }
+
+        return response
+
+
+class UserView(APIView):
+    def get(self, request):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        try:
+            payload = jwt.decode(token, 'secret', algorithm=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        user = User.objects.get(id=payload['id'])
+        serializer = UserSerializer(user)
+
+        return Response(serializer.data)
+
+
+class Logout(APIView):
+    def post(self, request):
+        response = Response()
+        response.delete_cookie('jwt')
+        response.data = {
+            'message': 'success'
+        }
+        return response

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../user.service";
 import {User} from "../models";
+import {LoggedService} from "../logged.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-up',
@@ -9,12 +11,12 @@ import {User} from "../models";
 })
 export class SignUpComponent implements OnInit{
 
+  users: User[]
   username: string
   password: string
   email: string
-  users: User[]
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private logService: LoggedService, private route: Router) {
     this.username = ''
     this.email = ''
     this.password = ''
@@ -25,12 +27,13 @@ export class SignUpComponent implements OnInit{
     this.getUsers()
   }
 
-  newUser(){
-    this.userService.newUser(this.username, this.password, this.email).subscribe((user) =>{
+  onSignup(){
+    this.logService.signupUser(this.username, this.email, this.password).subscribe((user) =>{
       this.users.push(user)
+      this.username = ''
       this.email = ''
       this.password = ''
-      this.username = ''
+      this.route.navigate(['/log-in'])
     })
   }
 

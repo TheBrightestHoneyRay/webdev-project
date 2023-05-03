@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {DiscussionsService} from "../discussions.service";
-import {Discussion} from "../models";
+import {Discussion, User} from "../models";
 import {ActivatedRoute} from "@angular/router";
 import {LoggedService} from "../logged.service";
+import {UserService} from "../user.service";
 
 @Component({
   selector: 'app-discussions',
@@ -16,17 +17,16 @@ export class DiscussionsComponent implements OnInit{
   creator: string
   isLogged: boolean
 
-  constructor(private disService: DiscussionsService, private route: ActivatedRoute, private logService: LoggedService) {
+  constructor(private disService: DiscussionsService, private route: ActivatedRoute,
+              private logService: LoggedService, private userService: UserService) {
     this.title = ''
     this.discussions = []
-    this.isLogged = logService.logged()
+    this.isLogged = false
     this.creator = 'anonymous'
   }
 
   ngOnInit() {
     this.getDiscussions()
-    this.logged()
-
   }
 
   getDiscussions(){
@@ -35,21 +35,14 @@ export class DiscussionsComponent implements OnInit{
       })
   }
 
-  newDiscussion(){
+  newAnonymousDiscussion(){
     if(this.title.length){
-      this.disService.createDiscussion(this.title, this.creator).subscribe((discussion) =>{
+      this.disService.createAnonymousDiscussion(this.title, this.creator).subscribe((discussion) =>{
         this.discussions.push(discussion)
         this.title = ''
       })
     }
   }
-
-  logged(){
-    if(!this.isLogged){
-      this.creator = 'anonymous'
-    }
-  }
-
   showRoute(){
     alert(this.route)
   }

@@ -13,7 +13,7 @@ export class DiscussionsService {
     return this.httpClient.get<Discussion[]>('http://127.0.0.1:8000/api/discussions/')
   }
 
-  createDiscussion(title: string, creator: string): Observable<Discussion>{
+  createAnonymousDiscussion(title: string, creator: string): Observable<Discussion>{
     return this.httpClient.post<Discussion>('http://127.0.0.1:8000/api/discussions/',
       {title: title, creator: creator})
   }

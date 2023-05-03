@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../models";
 import {LogInComponent} from "../log-in/log-in.component";
+import {LoggedService} from "../logged.service";
+import {UserService} from "../user.service";
 
 @Component({
   selector: 'app-top-bar',
@@ -9,17 +11,26 @@ import {LogInComponent} from "../log-in/log-in.component";
 })
 export class TopBarComponent implements OnInit{
 
-  logged: boolean
+  isLogged: boolean
   user: User
 
-  constructor() {
+  constructor(private logService: LoggedService, private userService: UserService) {
     this.user = {} as User
-    this.logged = false
+    this.isLogged = false
   }
 
-
   ngOnInit() {
-    this.logged = false
+    this.getUser()
+  }
+
+  getUser(){
+    this.userService.getUser().subscribe((user) =>{
+      this.user = user
+    })
+  }
+
+  onLogOut(){
+    this.isLogged = false
   }
 
 }

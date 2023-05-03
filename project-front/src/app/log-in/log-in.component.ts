@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "../user.service";
 import {Observable} from "rxjs";
 import {User} from "../models";
+import {LoggedService} from "../logged.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-log-in',
@@ -10,38 +12,29 @@ import {User} from "../models";
 })
 export class LogInComponent implements OnInit{
 
-  logged: boolean
   username: string
   password: string
-  user: User
-  users: User[]
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private logService: LoggedService, private route: Router) {
     this.username = ''
     this.password = ''
-    this.logged = false
-    this.user = {} as User
-    this.users = []
   }
 
   ngOnInit() {
-    this.getUsers()
   }
 
-  login() {
-    for(let user of this.users){
-      if (user.user_name == this.username){
-        if (user.password == this.password){
-          this.logged = true
-          this.user = user
-        }
-      }
-    }
-  }
-
-  getUsers(){
-    this.userService.getUsers().subscribe((users) =>{
-      this.users = users
+  onLogin(){
+    this.logService.loginUser(this.username, this.password).subscribe(() =>{
+      this.logService.isLogged = true
+      this.getUser()
+      this.route.navigate(['/home'])
     })
   }
+
+  getUser(){
+    this.userService.getUser().subscribe((user) => {
+      this.logService.loggedUser = user
+    })
+  }
+
 }

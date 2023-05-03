@@ -1,16 +1,16 @@
 <div class="cont" id="top-bar">
   <a routerLink="/home"><h2>MyComicsList</h2></a>
-  <ng-container *ngIf="!logged">
+  <ng-container *ngIf="!isLogged">
     <ul class="hor-list" id="sign-log">
       <li><a routerLink="/log-in">Log In</a></li>
       <li><a routerLink="/sign-up">Sign Up</a></li>
     </ul>
   </ng-container>
 
-  <ng-container *ngIf="logged">
-    <ul>
-      <li class="hor-list">{{user.user_name}}</li>
-      <li><button>Log out</button></li>
+  <ng-container *ngIf="isLogged">
+    <ul class="hor-list">
+      <li>{{user.user_name}}</li>
+      <li><button (click)="onLogOut()">Log out</button></li>
     </ul>
   </ng-container>
 </div>

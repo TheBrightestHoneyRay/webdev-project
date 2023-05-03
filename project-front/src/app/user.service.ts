@@ -16,7 +16,7 @@ export class UserService {
     return this.httpClient.get<User[]>(`${this.apiBase}users`)
   }
 
-  newUser(username: string, password: string, email: string): Observable<User>{
-    return this.httpClient.post<User>('http://127.0.0.1:8000/api/signup/', {username: username, password: password, email: email})
+  getUser(): Observable<User>{
+    return this.httpClient.get<User>('http://127.0.0.1:8000/api/user/', {withCredentials: true})
   }
 }
